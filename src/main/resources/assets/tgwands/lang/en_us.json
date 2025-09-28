@@ -1,0 +1,13 @@
+{
+  "itemGroup.tgwands": "Example Mod Tab",
+  "block.tgwands.example_block": "Example Block",
+  "item.tgwands.example_item": "Example Item",
+
+  "tgwands.configuration.title": "TGWands Configs",
+  "tgwands.configuration.section.tgwands.common.toml": "TGWands Configs",
+  "tgwands.configuration.section.tgwands.common.toml.title": "TGWands Configs",
+  "tgwands.configuration.items": "Item List",
+  "tgwands.configuration.logDirtBlock": "Log Dirt Block",
+  "tgwands.configuration.magicNumberIntroduction": "Magic Number Text",
+  "tgwands.configuration.magicNumber": "Magic Number"
+}
