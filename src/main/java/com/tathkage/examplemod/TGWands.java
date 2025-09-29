@@ -1,4 +1,4 @@
-package com.tathkage.tgwands;
+package com.tathkage.examplemod;
 
 import org.slf4j.Logger;
 

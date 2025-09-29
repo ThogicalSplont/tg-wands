@@ -1,4 +1,4 @@
-package com.tathkage.tgwands;
+package com.tathkage.examplemod;
 
 import java.util.List;
 import java.util.Set;
