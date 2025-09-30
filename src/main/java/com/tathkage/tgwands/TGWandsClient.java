@@ -1,4 +1,4 @@
-package com.tathkage.examplemod;
+package com.tathkage.tgwands;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;

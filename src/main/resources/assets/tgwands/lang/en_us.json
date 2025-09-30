@@ -1,7 +1,8 @@
 {
-  "itemGroup.tgwands": "Example Mod Tab",
+  "itemGroup.tgwands": "TGWands",
   "block.tgwands.example_block": "Example Block",
   "item.tgwands.example_item": "Example Item",
+  "item.tgwands.lightning_wand": "Lightning Wand",
 
   "tgwands.configuration.title": "TGWands Configs",
   "tgwands.configuration.section.tgwands.common.toml": "TGWands Configs",
