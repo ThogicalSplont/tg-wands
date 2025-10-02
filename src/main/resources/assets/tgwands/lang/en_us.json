@@ -3,7 +3,8 @@
   "block.tgwands.example_block": "Example Block",
   "item.tgwands.example_item": "Example Item",
   "item.tgwands.lightning_wand": "Lightning Wand",
-  "items.tgwands.fireball_wand": "Fireball Wand",
+  "item.tgwands.fireball_wand": "Fireball Wand",
+  "item.tgwands.earth_wand": "Earth Wand",
 
   "tgwands.configuration.title": "TGWands Configs",
   "tgwands.configuration.section.tgwands.common.toml": "TGWands Configs",
