@@ -1,5 +1,6 @@
 package com.tathkage.tgwands.item.EarthWand;
 
+import com.tathkage.tgwands.TGWands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -23,58 +24,80 @@ public class EarthWandItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
+        TGWands.LOGGER.info("[EarthWand] use() called by player: {}", player.getName().getString());
 
         if (!world.isClientSide) {
+            TGWands.LOGGER.info("[EarthWand] Server side confirmed.");
+
             // Raycast to find where player is looking
             HitResult hit = player.pick(50.0D, 0.0F, false);
+            TGWands.LOGGER.info("[EarthWand] Raycast hit type: {}", hit.getType());
 
             if (hit.getType() == HitResult.Type.BLOCK) {
                 Vec3 pos = hit.getLocation();
-                BlockPos basePos = new BlockPos((int) pos.x, (int) pos.y, (int) pos.z);
+                TGWands.LOGGER.info("[EarthWand] Hit location: x={}, y={}, z={}", pos.x, pos.y, pos.z);
 
-                Direction playerFacing = player.getDirection(); // The direction player is looking
+                BlockPos basePos = new BlockPos((int) pos.x, (int) pos.y, (int) pos.z);
+                Direction playerFacing = player.getDirection();
+                TGWands.LOGGER.info("[EarthWand] Player facing: {}", playerFacing);
 
                 final BlockPos.MutableBlockPos[] mutablePos = {new BlockPos.MutableBlockPos()};
-
                 BlockState dirtBlock = Blocks.DIRT.defaultBlockState();
 
-                // Create a 3x4 wall
+                TGWands.LOGGER.info("[EarthWand] Creating 3x4 dirt wall...");
                 for (int dx = -1; dx <= 1; dx++) { // width = 3
                     for (int dy = 0; dy < 4; dy++) { // height = 4
                         mutablePos[0].set(basePos);
-
-                        // Offset position so wall faces player
-                        mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1) // wall in front of target
+                        mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1)
                                 .offset(dx, dy, 0).mutable();
 
-                        // Only replace air blocks
+                        TGWands.LOGGER.info("[EarthWand] Checking block at {}", mutablePos[0]);
                         if (world.isEmptyBlock(mutablePos[0])) {
+                            TGWands.LOGGER.info("[EarthWand] Placing dirt at {}", mutablePos[0]);
                             world.setBlock(mutablePos[0], dirtBlock, 3);
+                        } else {
+                            TGWands.LOGGER.info("[EarthWand] Skipping non-air block at {}", mutablePos[0]);
                         }
                     }
                 }
 
-                // Schedule removal after 5 seconds (100 ticks)
+                TGWands.LOGGER.info("[EarthWand] Scheduling wall removal in 5 seconds.");
                 if (world instanceof ServerLevel serverWorld) {
-                    serverWorld.getServer().execute(new Runnable() {
+                    TGWands.LOGGER.info("[EarthWand] Scheduling wall removal in 100 ticks.");
+
+                    serverWorld.getServer().addTickable(new Runnable() {
+                        int ticks = 0;
+
                         @Override
                         public void run() {
-                            for (int dx = -1; dx <= 1; dx++) {
-                                for (int dy = 0; dy < 4; dy++) {
-                                    mutablePos[0].set(basePos);
-                                    mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1)
-                                            .offset(dx, dy, 0).mutable();
+                            ticks++;
 
-                                    if (world.getBlockState(mutablePos[0]).is(Blocks.DIRT)) {
-                                        world.setBlock(mutablePos[0], Blocks.AIR.defaultBlockState(), 3);
+                            if (ticks >= 100) { // 5 seconds (20 ticks per second)
+                                TGWands.LOGGER.info("[EarthWand] Removing wall after delay.");
+
+                                for (int dx = -1; dx <= 1; dx++) {
+                                    for (int dy = 0; dy < 4; dy++) {
+                                        mutablePos[0].set(basePos);
+                                        mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1)
+                                                .offset(dx, dy, 0).mutable();
+
+                                        if (world.getBlockState(mutablePos[0]).is(Blocks.DIRT)) {
+                                            TGWands.LOGGER.info("[EarthWand] Removing dirt at {}", mutablePos[0]);
+                                            world.setBlock(mutablePos[0], Blocks.AIR.defaultBlockState(), 3);
+                                        }
                                     }
                                 }
+
+                                // Stop ticking after removal
+                                return;
                             }
+
+                            // Keep ticking
+                            serverWorld.getServer().addTickable(this);
                         }
-                    }); // 100 ticks = 5 seconds
+                    });
                 }
 
-                // Play sound effect
                 world.playSound(
                         null,
                         player.getX(),
@@ -87,8 +110,13 @@ public class EarthWandItem extends Item {
                 );
 
                 player.awardStat(Stats.ITEM_USED.get(this));
+                TGWands.LOGGER.info("[EarthWand] Wall creation successful.");
                 return InteractionResult.SUCCESS;
+            } else {
+                TGWands.LOGGER.info("[EarthWand] Raycast did not hit a block.");
             }
+        } else {
+            TGWands.LOGGER.info("[EarthWand] Client side detected, skipping logic.");
         }
 
         return InteractionResult.PASS;
