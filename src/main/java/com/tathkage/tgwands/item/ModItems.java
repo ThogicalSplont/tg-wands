@@ -1,9 +1,9 @@
 package com.tathkage.tgwands.item;
 
 import com.tathkage.tgwands.TGWands;
-import com.tathkage.tgwands.item.EarthWand.EarthWandItem;
-import com.tathkage.tgwands.item.LightningWand.LightningWandItem;
-import com.tathkage.tgwands.item.FireballWand.FireballWandItem;
+import com.tathkage.tgwands.item.custom.EarthWandItem;
+import com.tathkage.tgwands.item.custom.LightningWandItem;
+import com.tathkage.tgwands.item.custom.FireballWandItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;

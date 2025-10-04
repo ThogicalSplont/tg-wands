@@ -1,4 +1,4 @@
-package com.tathkage.tgwands.item.LightningWand;
+package com.tathkage.tgwands.item.custom;
 
 import com.tathkage.tgwands.TGWands;
 import net.minecraft.sounds.SoundEvents;

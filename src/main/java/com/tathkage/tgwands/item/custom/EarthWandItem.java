@@ -1,9 +1,8 @@
-package com.tathkage.tgwands.item.EarthWand;
+package com.tathkage.tgwands.item.custom;
 
 import com.tathkage.tgwands.TGWands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -16,6 +15,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EarthWandItem extends Item {
     public EarthWandItem(Item.Properties properties) {
@@ -41,63 +43,28 @@ public class EarthWandItem extends Item {
                 Direction playerFacing = player.getDirection();
                 TGWands.LOGGER.info("[EarthWand] Player facing: {}", playerFacing);
 
-                final BlockPos.MutableBlockPos[] mutablePos = {new BlockPos.MutableBlockPos()};
                 BlockState dirtBlock = Blocks.DIRT.defaultBlockState();
+                List<BlockPos> placedBlocks = new ArrayList<>();
 
                 TGWands.LOGGER.info("[EarthWand] Creating 3x4 dirt wall...");
                 for (int dx = -1; dx <= 1; dx++) { // width = 3
                     for (int dy = 0; dy < 4; dy++) { // height = 4
-                        mutablePos[0].set(basePos);
-                        mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1)
-                                .offset(dx, dy, 0).mutable();
+                        BlockPos wallPos = basePos
+                                .relative(playerFacing.getOpposite(), 1)
+                                .offset(dx, dy, 0);
 
-                        TGWands.LOGGER.info("[EarthWand] Checking block at {}", mutablePos[0]);
-                        if (world.isEmptyBlock(mutablePos[0])) {
-                            TGWands.LOGGER.info("[EarthWand] Placing dirt at {}", mutablePos[0]);
-                            world.setBlock(mutablePos[0], dirtBlock, 3);
+                        TGWands.LOGGER.info("[EarthWand] Checking block at {}", wallPos);
+                        if (world.isEmptyBlock(wallPos)) {
+                            TGWands.LOGGER.info("[EarthWand] Placing dirt at {}", wallPos);
+                            world.setBlock(wallPos, dirtBlock, 3);
+                            placedBlocks.add(wallPos); // Track only placed dirt blocks
                         } else {
-                            TGWands.LOGGER.info("[EarthWand] Skipping non-air block at {}", mutablePos[0]);
+                            TGWands.LOGGER.info("[EarthWand] Skipping non-air block at {}", wallPos);
                         }
                     }
                 }
 
-                TGWands.LOGGER.info("[EarthWand] Scheduling wall removal in 5 seconds.");
-                if (world instanceof ServerLevel serverWorld) {
-                    TGWands.LOGGER.info("[EarthWand] Scheduling wall removal in 100 ticks.");
-
-                    serverWorld.getServer().addTickable(new Runnable() {
-                        int ticks = 0;
-
-                        @Override
-                        public void run() {
-                            ticks++;
-
-                            if (ticks >= 100) { // 5 seconds (20 ticks per second)
-                                TGWands.LOGGER.info("[EarthWand] Removing wall after delay.");
-
-                                for (int dx = -1; dx <= 1; dx++) {
-                                    for (int dy = 0; dy < 4; dy++) {
-                                        mutablePos[0].set(basePos);
-                                        mutablePos[0] = mutablePos[0].relative(playerFacing.getOpposite(), 1)
-                                                .offset(dx, dy, 0).mutable();
-
-                                        if (world.getBlockState(mutablePos[0]).is(Blocks.DIRT)) {
-                                            TGWands.LOGGER.info("[EarthWand] Removing dirt at {}", mutablePos[0]);
-                                            world.setBlock(mutablePos[0], Blocks.AIR.defaultBlockState(), 3);
-                                        }
-                                    }
-                                }
-
-                                // Stop ticking after removal
-                                return;
-                            }
-
-                            // Keep ticking
-                            serverWorld.getServer().addTickable(this);
-                        }
-                    });
-                }
-
+                // Play sound effect
                 world.playSound(
                         null,
                         player.getX(),
