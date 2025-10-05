@@ -1,6 +1,19 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "tgwands:item/lightning_wand"
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "tgwands:item/lightning_wand_2d"
+        },
+        "when": ["gui", "ground", "fixed"]
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "tgwands:item/lightning_wand_3d"
+    },
+    "property": "minecraft:display_context"
   }
 }

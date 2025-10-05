@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.phys.Vec3;
 
-public class FireballWandItem extends Item {
-    public FireballWandItem(Item.Properties properties) {
+public class FireWandItem extends Item {
+    public FireWandItem(Item.Properties properties) {
         super(properties);
     }
 

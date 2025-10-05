@@ -3,7 +3,8 @@ package com.tathkage.tgwands.item;
 import com.tathkage.tgwands.TGWands;
 import com.tathkage.tgwands.item.custom.EarthWandItem;
 import com.tathkage.tgwands.item.custom.LightningWandItem;
-import com.tathkage.tgwands.item.custom.FireballWandItem;
+import com.tathkage.tgwands.item.custom.FireWandItem;
+import com.tathkage.tgwands.item.custom.WaterWandItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -19,9 +20,9 @@ public class ModItems {
                     .stacksTo(1)
     );
 
-    public static final DeferredItem<Item> FIREBALL_WAND = ITEMS.registerItem(
-        "fireball_wand",
-            props -> new FireballWandItem(props.stacksTo(1)),
+    public static final DeferredItem<Item> FIRE_WAND = ITEMS.registerItem(
+        "fire_wand",
+            props -> new FireWandItem(props.stacksTo(1)),
             new Item.Properties()
                     .stacksTo(1)
     );
@@ -29,6 +30,13 @@ public class ModItems {
     public static final DeferredItem<Item> EARTH_WAND = ITEMS.registerItem(
             "earth_wand",
             props -> new EarthWandItem(props.stacksTo(1)),
+            new Item.Properties()
+                    .stacksTo(1)
+    );
+
+    public static final DeferredItem<Item> WATER_WAND = ITEMS.registerItem(
+            "water_wand",
+            props -> new WaterWandItem(props.stacksTo(1)),
             new Item.Properties()
                     .stacksTo(1)
     );

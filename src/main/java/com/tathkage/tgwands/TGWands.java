@@ -66,8 +66,9 @@ public class TGWands {
         .displayItems((parameters, output) -> {
             output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             output.accept(ModItems.LIGHTNING_WAND.get());
-            output.accept(ModItems.FIREBALL_WAND.get());
+            output.accept(ModItems.FIRE_WAND.get());
             output.accept(ModItems.EARTH_WAND.get());
+            output.accept(ModItems.WATER_WAND.get());
         })
         .build()
     );
@@ -122,8 +123,9 @@ public class TGWands {
         // Adds custom lightning wand to the combat tab
         if (event.getTabKey() == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.LIGHTNING_WAND);
-            event.accept(ModItems.FIREBALL_WAND);
+            event.accept(ModItems.FIRE_WAND);
             event.accept(ModItems.EARTH_WAND);
+            event.accept(ModItems.WATER_WAND);
         }
     }
 

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tgwands:item/lightning_wand"
+    "layer0": "tgwands:item/water_wand_2d"
   }
 }

@@ -5,14 +5,14 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "tgwands:item/earth_wand_2d"
+          "model": "tgwands:item/water_wand_2d"
         },
         "when": ["gui", "ground", "fixed"]
       }
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "tgwands:item/earth_wand_3d"
+      "model": "tgwands:item/water_wand_3d"
     },
     "property": "minecraft:display_context"
   }
