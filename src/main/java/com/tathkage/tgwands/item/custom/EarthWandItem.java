@@ -1,6 +1,7 @@
 package com.tathkage.tgwands.item.custom;
 
 import com.tathkage.tgwands.TGWands;
+import com.tathkage.tgwands.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -43,8 +44,7 @@ public class EarthWandItem extends Item {
                 Direction playerFacing = player.getDirection();
                 TGWands.LOGGER.info("[EarthWand] Player facing: {}", playerFacing);
 
-                BlockState dirtBlock = Blocks.DIRT.defaultBlockState();
-                List<BlockPos> placedBlocks = new ArrayList<>();
+                BlockState earthWallBlock = ModBlocks.EARTH_WALL.get().defaultBlockState();
 
                 TGWands.LOGGER.info("[EarthWand] Creating 3x4 dirt wall...");
                 for (int dx = -1; dx <= 1; dx++) { // width = 3
@@ -56,8 +56,7 @@ public class EarthWandItem extends Item {
                         TGWands.LOGGER.info("[EarthWand] Checking block at {}", wallPos);
                         if (world.isEmptyBlock(wallPos)) {
                             TGWands.LOGGER.info("[EarthWand] Placing dirt at {}", wallPos);
-                            world.setBlock(wallPos, dirtBlock, 3);
-                            placedBlocks.add(wallPos); // Track only placed dirt blocks
+                            world.setBlock(wallPos, earthWallBlock, 3);
                         } else {
                             TGWands.LOGGER.info("[EarthWand] Skipping non-air block at {}", wallPos);
                         }

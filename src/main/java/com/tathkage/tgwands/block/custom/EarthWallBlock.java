@@ -1,38 +1,27 @@
-//package com.tathkage.tgwands.block.custom;
-//
-//import net.minecraft.core.BlockPos;
-//import net.minecraft.world.level.block.Block;
-//import net.minecraft.world.level.block.entity.BlockEntity;
-//import net.minecraft.world.level.block.state.BlockState;
-//import net.minecraft.world.level.block.entity.BlockEntityTicker;
-//import net.minecraft.world.level.block.entity.BlockEntityType;
-//import net.minecraft.world.level.Level;
-//
-//import org.jetbrains.annotations.Nullable;
-//
-//public class EarthWallBlock extends Block {
-//    public EarthWallBlock() {
-//        super(properties);
-//    }
-//
-//    @Override
-//    public boolean hasBlockEntity(BlockState state) {
-//        return true;
-//    }
-//
-//    @Nullable
-//    @Override
-//    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-//        return new TemporaryDirtBlockEntity(pos, state);
-//    }
-//
-//    @Nullable
-//    @Override
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-//        return (lvl, pos, st, be) -> {
-//            if (be instanceof TemporaryDirtBlockEntity tempEntity) {
-//                tempEntity.tick();
-//            }
-//        };
-//    }
-//}
+package com.tathkage.tgwands.block.custom;
+
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class EarthWallBlock extends Block {
+
+    public EarthWallBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        // This is called during a random tick
+        level.setBlock(pos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+    }
+
+    @Override
+    public boolean isRandomlyTicking(BlockState state) {
+        return true; // Allow random ticks
+    }
+}

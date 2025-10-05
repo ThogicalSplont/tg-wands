@@ -1,5 +1,6 @@
 package com.tathkage.tgwands;
 
+import com.tathkage.tgwands.block.ModBlocks;
 import com.tathkage.tgwands.item.ModItems;
 import net.minecraft.world.item.*;
 import org.slf4j.Logger;
@@ -92,6 +93,7 @@ public class TGWands {
         NeoForge.EVENT_BUS.register(this);
 
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
