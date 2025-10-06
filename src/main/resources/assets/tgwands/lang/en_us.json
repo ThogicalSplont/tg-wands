@@ -1,6 +1,7 @@
 {
   "itemGroup.tgwands": "TGWands",
   "block.tgwands.example_block": "Example Block",
+  "block.tgwands.water_prison": "Water Prison Block",
   "item.tgwands.example_item": "Example Item",
   "item.tgwands.lightning_wand": "Lightning Wand",
   "item.tgwands.fire_wand": "Fire Wand",

@@ -1,21 +1,18 @@
 package com.tathkage.tgwands.item.custom;
 
 import com.tathkage.tgwands.TGWands;
+import com.tathkage.tgwands.block.ModBlocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.core.BlockPos;
 
 public class WaterWandItem extends Item {
     public WaterWandItem(Item.Properties properties) {
@@ -24,65 +21,62 @@ public class WaterWandItem extends Item {
 
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
-
-        ItemStack stack = player.getItemInHand(hand);
-
-        TGWands.LOGGER.info("LightningWandItem used by player: {}", player.getName().getString());
+        TGWands.LOGGER.info("[WaterWand] use() called by player: {}", player.getName().getString());
 
         if (!world.isClientSide) {
-            TGWands.LOGGER.info("Server side use detected");
+            TGWands.LOGGER.info("[WaterWand] Server side confirmed.");
 
-            // Get where the player is looking
-            HitResult hit = player.pick(150.0D, 0.0F, false);
-            TGWands.LOGGER.info("HitResult obtained: type = {}", hit.getType());
+            // Find the position 10 blocks ahead of where the player is looking
+            Vec3 lookVec = player.getLookAngle().normalize().scale(10);
+            Vec3 sphereCenterVec = player.position().add(lookVec);
 
-            if (hit.getType() == HitResult.Type.BLOCK) {
-                Vec3 pos = hit.getLocation();
-                TGWands.LOGGER.info(String.format("Hit location: x=%.2f, y=%.2f, z=%.2f", pos.x, pos.y, pos.z));
+            BlockPos centerPos = new BlockPos(
+                    (int) sphereCenterVec.x,
+                    (int) sphereCenterVec.y,
+                    (int) sphereCenterVec.z
+            );
 
-                BlockPos blockPos = new BlockPos((int) pos.x, (int) pos.y, (int) pos.z);
-                TGWands.LOGGER.info("Converted to BlockPos: {}", blockPos);
+            BlockState waterPrisonBlock = ModBlocks.WATER_PRISON.get().defaultBlockState();
 
-                // Summon lightning at the targeted position
-                LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(
-                        world,
-                        EntitySpawnReason.TRIGGERED
-                );
+            TGWands.LOGGER.info("[WaterWand] Creating sphere at {}", centerPos);
 
-                if (lightning != null) {
-                    TGWands.LOGGER.info("LightningBolt entity created successfully");
+            int radius = 4; // sphere radius
 
-                    lightning.move(net.minecraft.world.entity.MoverType.PLAYER, pos.subtract(player.position()));
-                    lightning.setPos(pos.x, pos.y, pos.z);
-                    world.addFreshEntity(lightning);
-                    TGWands.LOGGER.info("LightningBolt spawned at {}", blockPos);
+            for (int dx = -radius; dx <= radius; dx++) {
+                for (int dy = -radius; dy <= radius; dy++) {
+                    for (int dz = -radius; dz <= radius; dz++) {
+                        BlockPos spherePos = centerPos.offset(dx, dy, dz);
 
-                    // Play lightning impact sound
-                    world.playSound(
-                            null,
-                            player.getX(),
-                            player.getY(),
-                            player.getZ(),
-                            SoundEvents.LIGHTNING_BOLT_IMPACT,
-                            SoundSource.WEATHER,
-                            1.0F,
-                            1.0F
-                    );
-                    TGWands.LOGGER.info("Played lightning impact sound");
-
-                    // Notify world of lightning event
-                    world.gameEvent(player, GameEvent.LIGHTNING_STRIKE, blockPos);
-                    TGWands.LOGGER.info("Triggered lightning strike game event at {}", blockPos);
-                } else {
-                    TGWands.LOGGER.error("Failed to create LightningBolt entity");
+                        // Sphere condition: distance from center <= radius
+                        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                        if (distance <= radius) {
+                            if (world.isEmptyBlock(spherePos)) { // don't overwrite existing blocks
+                                world.setBlock(spherePos, waterPrisonBlock, 3);
+                            }
+                        }
+                    }
                 }
-            } else {
-                TGWands.LOGGER.warn("HitResult type is not BLOCK, skipping lightning summon");
             }
+
+            // Play water-related sound effect
+            world.playSound(
+                    null,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    SoundEvents.BUCKET_FILL,
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F
+            );
+
+            player.awardStat(Stats.ITEM_USED.get(this));
+            TGWands.LOGGER.info("[WaterWand] Sphere creation successful.");
+            return InteractionResult.SUCCESS;
         } else {
-            TGWands.LOGGER.info("Client side detected, skipping lightning summon");
+            TGWands.LOGGER.info("[WaterWand] Client side detected, skipping logic.");
         }
 
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 }
