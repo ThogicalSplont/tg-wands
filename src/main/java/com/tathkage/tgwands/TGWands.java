@@ -1,6 +1,7 @@
 package com.tathkage.tgwands;
 
 import com.tathkage.tgwands.block.ModBlocks;
+import com.tathkage.tgwands.entity.ModEntities;
 import com.tathkage.tgwands.item.ModItems;
 import net.minecraft.world.item.*;
 import org.slf4j.Logger;
@@ -40,6 +41,8 @@ public class TGWands {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     // Create a Deferred Register to hold Items which will all be registered under the "tgwands" namespace
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    // Create a Deferred Register to hold Entities which will all be registered under the "tgwands"namespace
+    public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "tgwands" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
@@ -51,13 +54,6 @@ public class TGWands {
     // Creates a new food item with the id "tgwands:example_id", nutrition 1 and saturation 2
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
-
-//    // Creates a new item with the id "tgwands:lightning_wand", X INFO
-//    public static final DeferredItem<Item> LIGHTNING_WAND = ITEMS.registerSimpleItem(
-//            "lightning_wand",
-//            new Item.Properties()
-//                    .stacksTo(1)
-//    );
 
     // Creates a creative tab with the id "tgwands:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TGWANDS_TAB = CREATIVE_MODE_TABS.register("tgwands_tab", () -> CreativeModeTab.builder()
@@ -84,6 +80,8 @@ public class TGWands {
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+        // Register the Deferred Regist to the mod event bus so entities get registered
+        ENTITIES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -94,6 +92,7 @@ public class TGWands {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
