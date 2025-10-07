@@ -64,7 +64,7 @@ public class Config {
             .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
 
     /** The built configuration specification for this mod. */
-    static final ModConfigSpec SPEC = BUILDER.build();
+    public static final ModConfigSpec SPEC = BUILDER.build();
 
     /**
      * Validates whether the provided object is a valid item resource location.
