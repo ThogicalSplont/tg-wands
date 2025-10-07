@@ -40,8 +40,10 @@ import org.jetbrains.annotations.NotNull;
  * // Lightning strikes at the targeted block location
  * }</pre>
  *
- * @since 1.0.0
- * @author Tathluach
+ * @author
+ *     ThogicalSplont
+ * @since
+ *     0.1.0
  */
 public class LightningWandItem extends Item {
 

@@ -23,9 +23,10 @@ import org.jetbrains.annotations.NotNull;
  * </ul>
  *
  * @see com.thogicalsplont.tgwands.block.custom.WaterPrisonBlock
- * @since 1.0.0
  * @author
- *     Tathluach Chol
+ *     ThogicalSplont
+ * @since
+ *     0.1.0
  */
 public class WaterPrisonBlockEntity extends BlockEntity {
 

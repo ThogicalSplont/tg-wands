@@ -38,9 +38,9 @@ import org.jetbrains.annotations.NotNull;
  * }</pre>
  *
  * @author
- *     Tathluach Chol
+ *     ThogicalSplont
  * @since
- *     1.0.0
+ *     0.1.0
  */
 public class EarthWandItem extends Item {
 

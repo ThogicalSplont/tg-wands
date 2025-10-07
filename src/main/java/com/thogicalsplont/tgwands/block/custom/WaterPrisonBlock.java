@@ -41,9 +41,9 @@ import org.jetbrains.annotations.Nullable;
  * }</pre>
  *
  * @author
- *     Tathluach Chol
+ *     ThogicalSplont
  * @since
- *     1.0.0
+ *     0.1.0
  */
 public class WaterPrisonBlock extends Block implements EntityBlock {
 
