@@ -1,7 +1,7 @@
 package com.thogicalsplont.tgwands.block.custom;
 
-import com.thogicalsplont.tgwands.entity.ModEntities;
-import com.thogicalsplont.tgwands.entity.custom.WaterPrisonBlockEntity;
+import com.thogicalsplont.tgwands.block.entity.ModBlockEntities;
+import com.thogicalsplont.tgwands.block.entity.custom.WaterPrisonBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents a magical water prison block that traps and slows entities caught inside it.
+ * Represents a water prison block that traps and slows entities caught inside it.
  * <p>
  * The {@code WaterPrisonBlock} contains a {@link WaterPrisonBlockEntity} that can manage
  * timed behavior or additional state. While inside this block, entities experience
@@ -41,9 +41,9 @@ import org.jetbrains.annotations.Nullable;
  * }</pre>
  *
  * @author
- *     Tathluach Chol
+ *     ThogicalSplont
  * @since
- *     1.0.0
+ *     0.1.0
  */
 public class WaterPrisonBlock extends Block implements EntityBlock {
 
@@ -75,7 +75,7 @@ public class WaterPrisonBlock extends Block implements EntityBlock {
             @NotNull BlockState state,
             @NotNull BlockEntityType<T> type
     ) {
-        return type == ModEntities.WATER_PRISON_ENTITY.get() && !level.isClientSide()
+        return type == ModBlockEntities.WATER_PRISON_ENTITY.get() && !level.isClientSide()
                 ? (lvl, pos, st, be) -> WaterPrisonBlockEntity.tick(lvl, pos, st, (WaterPrisonBlockEntity) be)
                 : null;
     }

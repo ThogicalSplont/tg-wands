@@ -1,5 +1,5 @@
 /**
- * Contains all block-related classes for the TGWands mod.
+ * Contains all block-related classes.
  * <p>
  * This package includes block registrations and custom block implementations,
  * such as {@link com.thogicalsplont.tgwands.block.custom.EarthWallBlock}

@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * Registers custom blocks for the TGWands mod.
+ * Registers custom blocks.
  * <p>
  * This class handles the creation and registration of custom block types,
  * including their properties such as hardness, resistance, sound, and behavior.
@@ -53,8 +53,9 @@ public class ModBlocks {
     /**
      * Water Prison Block.
      * <p>
-     * A special block that traps entities inside and applies slowing and drowning effects.
-     * This block has no collision and no occlusion, and lasts indefinitely unless removed.
+     * A special temporary block that traps entities inside by applying slowing and drowning effects.
+     * This block has no collision and no occlusion, and the block entity automatically disappears
+     * after a set amount of ticks.
      * </p>
      */
     public static final DeferredBlock<Block> WATER_PRISON = BLOCKS.register("water_prison", props ->

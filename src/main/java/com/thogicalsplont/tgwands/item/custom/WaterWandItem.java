@@ -36,9 +36,10 @@ import org.jetbrains.annotations.NotNull;
  * // A water prison sphere is generated 10 blocks ahead
  * }</pre>
  *
- * @since 1.0.0
  * @author
- *     Tathluach Chol
+ *     ThogicalSplont
+ * @since
+ *     0.1.0
  */
 public class WaterWandItem extends Item {
 
