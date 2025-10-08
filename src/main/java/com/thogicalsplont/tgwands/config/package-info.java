@@ -1,5 +1,5 @@
 /**
- * Contains configuration-related classes for the TGWands mod.
+ * Contains configuration-related classes.
  * <p>
  * This package includes classes that define and validate mod configuration options
  * using NeoForge’s configuration API.

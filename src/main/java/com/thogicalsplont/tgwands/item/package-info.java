@@ -1,5 +1,5 @@
 /**
- * Contains all item-related classes for the TGWands mod.
+ * Contains all item-related classes.
  * <p>
  * This package includes item registrations and custom wand item implementations,
  * such as {@link com.thogicalsplont.tgwands.item.custom.LightningWandItem},

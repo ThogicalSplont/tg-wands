@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * Registers custom items for the TGWands mod.
+ * Registers custom items.
  * <p>
  * This class handles the creation and registration of custom magical wand items,
  * specifying their behavior and stack sizes.
@@ -58,7 +58,7 @@ public class ModItems {
     /**
      * Earth Wand.
      * <p>
-     * Creates temporary walls of earth blocks in front of the player.
+     * Creates temporary walls of earth blocks at targeted locations.
      * </p>
      */
     public static final DeferredItem<Item> EARTH_WAND = ITEMS.registerItem(
@@ -70,7 +70,7 @@ public class ModItems {
     /**
      * Water Wand.
      * <p>
-     * Creates a sphere of water prison blocks in front of the player.
+     * Creates a temporary sphere of water prison blocks in front of the player.
      * </p>
      */
     public static final DeferredItem<Item> WATER_WAND = ITEMS.registerItem(

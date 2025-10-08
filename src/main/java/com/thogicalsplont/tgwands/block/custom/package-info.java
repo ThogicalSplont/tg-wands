@@ -1,11 +1,12 @@
 /**
- * Contains custom block implementations for the TGWands mod.
+ * Contains custom block implementations.
  * <p>
  * This package includes classes defining specialized block types
  * with unique behaviors and properties beyond standard Minecraft blocks.
  * </p>
  *
- * <p><strong>Examples:</strong> {@link com.thogicalsplont.tgwands.block.custom.EarthWallBlock},
+ * <p><strong>Examples:</strong>
+ * {@link com.thogicalsplont.tgwands.block.custom.EarthWallBlock},
  * {@link com.thogicalsplont.tgwands.block.custom.WaterPrisonBlock}</p>
  *
  * @since 0.1.0

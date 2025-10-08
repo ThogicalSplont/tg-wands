@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 /**
- * Configuration class for the TGWands mod.
+ * Configuration class.
  * <p>
  * Demonstrates how to use NeoForge’s configuration API to define mod-specific settings.
  * This class organizes configuration values, their defaults, and validation logic.
@@ -27,30 +27,6 @@ public class Config {
 
     /** Builder for defining configuration spec. */
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-
-    /**
-     * Whether to log the dirt block during the mod’s common setup phase.
-     * Default: true
-     */
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
-
-    /**
-     * A magic number setting, configurable by the user.
-     * Default: 42
-     */
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
-
-    /**
-     * Custom introduction message for the magic number.
-     * Default: "The magic number is... "
-     */
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
 
     /**
      * A list of item identifiers to log on common setup.

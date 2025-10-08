@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 /**
- * Client-side entry point for the TGWands mod.
+ * Client-side entry point.
  * <p>
  * Handles client-specific initialization, configuration screen registration, and event handling.
  * This class is only loaded on the client distribution.
