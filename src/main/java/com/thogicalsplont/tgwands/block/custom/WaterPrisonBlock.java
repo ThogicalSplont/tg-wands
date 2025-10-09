@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -128,5 +129,58 @@ public class WaterPrisonBlock extends Block implements EntityBlock {
     @Override
     public @NotNull BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new WaterPrisonBlockEntity(pos, state);
+    }
+
+    /**
+     * Gets the collision shape of this block.
+     * <p>
+     * This determines the physical shape used for entity collisions. For the
+     * {@code WaterPrisonBlock}, this returns an empty shape so that entities
+     * can freely fall into or move through the block without obstruction.
+     * </p>
+     *
+     * @param state   the current block state
+     * @param level   the block’s containing level
+     * @param pos     the position of the block
+     * @param context the collision context, such as entity size and movement
+     * @return an empty {@link VoxelShape} to allow unobstructed movement
+     * @since 0.1.0
+     */
+    @Override
+    public @NotNull VoxelShape getCollisionShape(
+            @NotNull BlockState state,
+            @NotNull net.minecraft.world.level.BlockGetter level,
+            @NotNull BlockPos pos,
+            @NotNull net.minecraft.world.phys.shapes.CollisionContext context
+    ) {
+        // No collision — allows entities to fall through
+        return net.minecraft.world.phys.shapes.Shapes.empty();
+    }
+
+    /**
+     * Gets the visual shape of this block.
+     * <p>
+     * The visual shape defines how the block is represented for rendering,
+     * outline, and ray tracing. For the {@code WaterPrisonBlock}, this returns
+     * an empty shape so that the block does not obstruct outlines or ray tracing.
+     * This ensures a fully transparent and non-solid visual effect.
+     * </p>
+     *
+     * @param state   the current block state
+     * @param level   the block’s containing level
+     * @param pos     the position of the block
+     * @param context the collision context
+     * @return an empty {@link VoxelShape} to prevent obstruction of outlines and ray tracing
+     * @since 0.1.0
+     */
+    @Override
+    public @NotNull VoxelShape getVisualShape(
+            @NotNull BlockState state,
+            @NotNull net.minecraft.world.level.BlockGetter level,
+            @NotNull BlockPos pos,
+            @NotNull net.minecraft.world.phys.shapes.CollisionContext context
+    ) {
+        // Makes the block not obstruct block outlines or ray tracing
+        return net.minecraft.world.phys.shapes.Shapes.empty();
     }
 }
