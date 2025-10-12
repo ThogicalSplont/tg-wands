@@ -3,13 +3,16 @@ package com.thogicalsplont.tgwands;
 import com.thogicalsplont.tgwands.block.ModBlocks;
 import com.thogicalsplont.tgwands.config.Config;
 import com.thogicalsplont.tgwands.block.entity.ModBlockEntities;
+import com.thogicalsplont.tgwands.entity.ModEntities;
 import com.thogicalsplont.tgwands.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -20,6 +23,9 @@ import net.neoforged.neoforge.registries.*;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
+
+import static com.thogicalsplont.tgwands.block.entity.ModBlockEntities.BLOCK_ENTITIES;
+import static com.thogicalsplont.tgwands.entity.ModEntities.ENTITY_TYPES;
 
 /**
  * The main mod class.
@@ -89,6 +95,7 @@ public class TGWands {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 

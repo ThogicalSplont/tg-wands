@@ -1,5 +1,6 @@
 package com.thogicalsplont.tgwands.item.custom;
 
+import com.thogicalsplont.tgwands.entity.custom.FireballEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -75,7 +76,7 @@ public class FireWandItem extends Item {
             Vec3 lookVec = player.getLookAngle();
 
             // Create a fireball entity
-            LargeFireball fireball = new LargeFireball(EntityType.FIREBALL, world);
+            FireballEntity fireball = new FireballEntity(world, player, lookVec, 1);
 
             // Position the fireball slightly in front of the player
             fireball.setPos(

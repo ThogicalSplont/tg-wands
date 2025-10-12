@@ -29,7 +29,7 @@ public class ModEntities {
             DeferredRegister.createEntities(TGWands.MODID);
 
     /**
-     * Custom Fireball Entity.
+     * Custom com.thogicalsplont.tgwands.entity.client.Fireball Entity.
      * <p>
      * A magical projectile fired from the Fire Wand.
      * Functions like Minecraft's LargeFireball but uses a custom model.
